@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:5000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+   # entrypoint: /app/entrypoint.sh
+
+  db:
+    image: mysql:5.7.22
+    restart: always
+    environment:
+      MYSQL_DATABASE: mainapp
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin1234
+      MYSQL_ROOT_PASSWORD: admin1234
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 33067:3306
+  
+  # migrations:
+  #   extends:
+  #     service: base
+  #   command: python manager.py db upgrade
+  #   depends_on:
+  #     - db
+  

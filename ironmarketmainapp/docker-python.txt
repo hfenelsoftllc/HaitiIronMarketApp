@@ -1,0 +1,148 @@
+    1  #! /bin/bash
+    2  set -euo pipefail
+    3  info() {   printf "\r\033[00;35m$1\033[0m\n"; }
+    4  success() {   printf "\r\033[00;32m$1\033[0m\n"; }
+    5  fail() {   printf "\r\033[0;31m$1\033[0m\n"; }
+    6  divider() {   printf "\r\033[0;1m========================================================================\033[0m\n"; }
+    7  pause_for_confirmation() {   read -rsp $'Press any key to continue (ctrl-c to quit):\n' -n1 key; }
+    8  # Set up an interrupt handler so we can exit gracefully
+    9  interrupt_count=0
+   10  interrupt_handler() {   ((interrupt_count += 1));    echo "";   if [[ $interrupt_count -eq 1 ]]; then     fail "Really quit? Hit ctrl-c again to confirm.";   else     echo "Goodbye!";     exit;   fi; }
+   11  trap interrupt_handler SIGINT SIGTERM
+   12  # This setup script does all the magic.
+   13  # Check for required tools
+   14  declare -a req_tools=("terraform" "sed" "curl" "jq")
+   15  for tool in "${req_tools[@]}"; do   if ! command -v "$tool" > /dev/null; then     fail "It looks like '${tool}' is not installed; please install it and run this setup script again.";     exit 1;   fi; done
+   16  #!/bin/bash
+   17  #    Copyright 2020 AxonIQ B.V.
+   18  #    Licensed under the Apache License, Version 2.0 (the "License");
+   19  #    you may not use this file except in compliance with the License.
+   20  #    You may obtain a copy of the License at
+   21  #        http://www.apache.org/licenses/LICENSE-2.0
+   22  #    Unless required by applicable law or agreed to in writing, software
+   23  #    distributed under the License is distributed on an "AS IS" BASIS,
+   24  #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   25  #    See the License for the specific language governing permissions and
+   26  #    limitations under the License.
+   27  NODE_NAME=$1
+   28  NODE_NR=$(echo ${NODE_NAME} | sed -e 's/^.*-\([[:digit:]]*\)$/\1/')
+   29  if [ ! -d ${NODE_NAME} ] ; then     echo "Creating directory for node \"${NODE_NAME}\".";     mkdir ${NODE_NAME}; fi
+   30  if [[ "${NODE_NAME}" == "node-1" ]] ; then     LICENSE_FILE=axoniq.license;     if [ ! -s ${NODE_NAME}/${LICENSE_FILE} -a -s ./${LICENSE_FILE} ] ; then         echo "Adding license file to node workdir.";         cp ./${LICENSE_FILE} ./${NODE_NAME}/;     fi; fi
+   31  cd ${NODE_NAME}
+   32  AXONIQ_LICENSE=./axoniq.license nohup java -jar ../axonserver.jar >>./axonserver.log 2>&1 &
+   33  #!/bin/bash
+   34  #    Copyright 2020 AxonIQ B.V.
+   35  #    Licensed under the Apache License, Version 2.0 (the "License");
+   36  #    you may not use this file except in compliance with the License.
+   37  #    You may obtain a copy of the License at
+   38  #        http://www.apache.org/licenses/LICENSE-2.0
+   39  #    Unless required by applicable law or agreed to in writing, software
+   40  #    distributed under the License is distributed on an "AS IS" BASIS,
+   41  #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   42  #    See the License for the specific language governing permissions and
+   43  #    limitations under the License.
+   44  if [[ $# != 1 ]] ; then     echo "Usage: $0 <node-name>";     exit 1; elif [ ! -d $1 ] ; then     echo "No directory for node \"$1\" found.";     exit 1; fi
+   45  cd d:
+   46  cd Training/
+   47  ls
+   48  git clone https://github.com/hfenelsoftllc/azurearmbeginner.git
+   49  cd azurearmbeginner/
+   50  ls
+   51  code .
+   52  git add .
+   53  git commit -m "first commit - add resources, param, func,var"
+   54  git push origin
+   55  git add .
+   56  git commit -m "correct the variable error"
+   57  git push origin
+   58  git add .
+   59  git commit -m "adding service plan to export template"
+   60  git push origin
+   61  git add .
+   62  git commit -m "deploy web app with quickkstart template"
+   63  git push origin
+   64  git add .
+   65  git commit -m "adding tags to the resources with quickstart template"
+   66  git push origin
+   67  docker ps
+   68  eexit
+   69  exit
+   70  flask version
+   71  flask --version
+   72  python flask version
+   73  python -m flask
+   74  ls -lrat
+   75  python mainapp.py
+   76  pip install flask
+   77  python mainapp.py
+   78  pip install -U flask
+   79  flask run
+   80  flask run mainapp.py
+   81  python flask run  mainapp.py
+   82  python flask  mainapp.py
+   83  code ..
+   84  exit
+   85  python  mainapp.py
+   86  pipenv --three
+   87  source .\env\Script\activate
+   88  py -3 -m venv venv
+   89  pypi -3 -m venv venv
+   90  python3 -m venv venv
+   91  source .\env\Script\activate
+   92  source .\venv\Script\activate
+   93  source .venv\Script\activate
+   94  source venv\Script\activate
+   95  venv\Script\activate
+   96  venv\Scripts\activate
+   97  source venv\Scripts\activate
+   98  venv\Scripts\activate
+   99  venv/Scripts/activate
+  100  python flask version
+  101  python flask --version
+  102  flask --version
+  103  python install -U flask
+  104  pip flask --version
+  105  pypi install -U flask
+  106  pip install -U flask
+  107  pip install -U flask-Cors
+  108  pip install -U Flask-Migrate==2.0.6
+  109  pip install -U Flask-Migrate==2.6.0
+  110  pip install -U Flask-Script==2.0.6
+  111  pip install -U SQLAlchemy
+  112  pip install -U requests
+  113  pip install -U mysqlclient=2.1.0 pika=1.2.0
+  114  pip install -U mysqlclient=2.1.0
+  115  pip install  mysqlclient=2.1.0
+  116  pip install -U 
+  117  python mainapp.py 
+  118  docker-compose backend sh
+  119  docker-compose exec backend sh
+  120  docker-compose exec backend sh
+  121  pip install -U Flask-SQLAlchemy==2.4.4
+  122  python mainapp.py 
+  123  pip --version
+  124  pip show flask
+  125  pip3 install wtforms 
+  126  source venv/Scripts/activate
+  127  pip install -U Flask-SQLAlchemy==2.4.4
+  128  source venv/Scripts/python -m pip install --upgrade pip
+  129  exit
+  130  source d:/Haiti/HaitiIronMarketApp/ironmarketmainapp/venv/Scripts/activate
+  131  ls -lrt
+  132  cd venv/Scripts/
+  133  python -m pip install --upgrade pip
+  134  pip --version
+  135  pip install Flask-Migrate==2.5.3
+  136  pip install pika==1.2.0
+  137  pip install Flask-Script==2.0.6
+  138  pip install mysqlclient==2.1.0
+  139  pip install Flask-Cors==3.0.10
+  140  docker-compose exec backend sh
+  141  pip install Flask-Script==2.0.5
+  142  docker-compose exec backend sh
+  143  pip install Flask==1.1.2
+  144  docker-compose exec backend sh
+  145  docker-compose exec backend sh
+  146  cd ../..
+  147  docker-compose exec backend sh
+  148  history >> docker-python.txt
